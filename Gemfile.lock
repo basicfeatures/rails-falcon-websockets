@@ -102,6 +102,12 @@ GEM
     bootsnap (1.16.0)
       msgpack (~> 1.2)
     builder (3.2.4)
+    cable_ready (5.0.0)
+      actionpack (>= 5.2)
+      actionview (>= 5.2)
+      activesupport (>= 5.2)
+      railties (>= 5.2)
+      thread-local (>= 1.1.0)
     capybara (3.39.1)
       addressable
       matrix
@@ -191,6 +197,9 @@ GEM
       redis-client (>= 0.9.0)
     redis-client (0.14.1)
       connection_pool
+    redis-session-store (0.11.5)
+      actionpack (>= 6, < 8)
+      redis (>= 3, < 6)
     regexp_parser (2.8.0)
     reline (0.3.4)
       io-console (~> 0.5)
@@ -202,7 +211,18 @@ GEM
       websocket (~> 1.0)
     stimulus-rails (1.2.1)
       railties (>= 6.0.0)
+    stimulus_reflex (3.5.0.rc2)
+      actioncable (>= 5.2, < 8)
+      actionpack (>= 5.2, < 8)
+      actionview (>= 5.2, < 8)
+      activesupport (>= 5.2, < 8)
+      cable_ready (>= 5.0.0.rc2)
+      nokogiri (~> 1.0)
+      rack (>= 2, < 4)
+      railties (>= 5.2, < 8)
+      redis (>= 4.0, < 6.0)
     thor (1.2.2)
+    thread-local (1.1.0)
     timeout (0.3.2)
     turbo-rails (1.4.0)
       actionpack (>= 6.0.0)
@@ -229,6 +249,7 @@ PLATFORMS
 
 DEPENDENCIES
   bootsnap
+  cable_ready (~> 5.0.pre9)
   capybara
   cssbundling-rails
   debug
@@ -240,8 +261,10 @@ DEPENDENCIES
   puma (>= 5.0)
   rails!
   redis (>= 4.0.1)
+  redis-session-store (~> 0.11.5)
   selenium-webdriver
   stimulus-rails
+  stimulus_reflex (~> 3.5.pre9)
   turbo-rails
   tzinfo-data
   webdrivers
