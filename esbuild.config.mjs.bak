@@ -1,5 +1,6 @@
 #!/usr/bin/env node
-
+// Requires esbuild 0.17+
+//
 // Esbuild is configured with 3 modes:
 //
 // `yarn build` - Build JavaScript and exit
@@ -17,17 +18,14 @@ import http from "http"
 import { setTimeout } from "timers/promises"
 
 const clients = []
-
 const entryPoints = [
   "application.js"
 ]
-
 const watchDirectories = [
   "./app/javascript/**/*.js",
   "./app/views/**/*.html.erb",
   "./app/assets/builds/**/*.css", // Wait for cssbundling changes
 ]
-
 const config = {
   absWorkingDir: path.join(process.cwd(), "app/javascript"),
   bundle: true,
@@ -49,39 +47,44 @@ async function buildAndReload() {
   })
 
   // Reload uses an HTTP server as an even stream to reload the browser
-  http.createServer((req, res) => {
-    return clients.push(
-      res.writeHead(200, {
-        "Content-Type": "text/event-stream",
-        "Cache-Control": "no-cache",
-        "Access-Control-Allow-Origin": "*",
-        Connection: "keep-alive",
-      })
-    )
-  }).listen(port)
+  http
+    .createServer((req, res) => {
+      return clients.push(
+        res.writeHead(200, {
+          "Content-Type": "text/event-stream",
+          "Cache-Control": "no-cache",
+          "Access-Control-Allow-Origin": "*",
+          Connection: "keep-alive",
+        })
+      )
+    })
+    .listen(port)
 
   await context.rebuild()
   console.log("[reload] initial build succeeded")
 
   let ready = false
-  chokidar.watch(watchDirectories).on("ready", () => {
-    console.log("[reload] ready")
-    ready = true
-  }).on("all", async (event, path) => {
-    if (ready === false)  return
+  chokidar
+    .watch(watchDirectories)
+    .on("ready", () => {
+      console.log("[reload] ready")
+      ready = true
+    })
+    .on("all", async (event, path) => {
+      if (ready === false)  return
 
-    if (path.includes("javascript")) {
-      try {
-        await setTimeout(20)
-        await context.rebuild()
-        console.log("[reload] build succeeded")
-      } catch (error) {
-        console.error("[reload] build failed", error)
+      if (path.includes("javascript")) {
+        try {
+          await setTimeout(20)
+          await context.rebuild()
+          console.log("[reload] build succeeded")
+        } catch (error) {
+          console.error("[reload] build failed", error)
+        }
       }
-    }
-    clients.forEach((res) => res.write("data: update\n\n"))
-    clients.length = 0
-  })
+      clients.forEach((res) => res.write("data: update\n\n"))
+      clients.length = 0
+    })
 }
 
 if (process.argv.includes("--reload")) {
