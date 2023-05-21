@@ -94,13 +94,53 @@ GIT
       thor (~> 1.0, >= 1.2.2)
       zeitwerk (~> 2.6)
 
+GIT
+  remote: https://github.com/socketry/falcon.git
+  revision: 358697db9b3486f2fce782c43472c05d2c8b1787
+  specs:
+    falcon (0.42.3)
+      async
+      async-container (~> 0.16.0)
+      async-http (~> 0.57)
+      async-http-cache (~> 0.4.0)
+      async-io (~> 1.22)
+      build-environment (~> 1.13)
+      bundler
+      localhost (~> 1.1)
+      openssl (~> 3.0)
+      process-metrics (~> 0.2.0)
+      protocol-rack (~> 0.1)
+      samovar (~> 2.1)
+
 GEM
   remote: https://rubygems.org/
   specs:
     addressable (2.8.4)
       public_suffix (>= 2.0.2, < 6.0)
+    async (2.5.1)
+      console (~> 1.10)
+      io-event (~> 1.1)
+      timers (~> 4.1)
+    async-container (0.16.12)
+      async
+      async-io
+    async-http (0.60.1)
+      async (>= 1.25)
+      async-io (>= 1.28)
+      async-pool (>= 0.2)
+      protocol-http (~> 0.24.0)
+      protocol-http1 (~> 0.15.0)
+      protocol-http2 (~> 0.15.0)
+      traces (>= 0.8.0)
+    async-http-cache (0.4.3)
+      async-http (~> 0.56)
+    async-io (1.34.3)
+      async
+    async-pool (0.4.0)
+      async (>= 1.25)
     bootsnap (1.16.0)
       msgpack (~> 1.2)
+    build-environment (1.13.0)
     builder (3.2.4)
     cable_ready (5.0.0)
       actionpack (>= 5.2)
@@ -119,6 +159,8 @@ GEM
       xpath (~> 3.2)
     concurrent-ruby (1.2.2)
     connection_pool (2.4.1)
+    console (1.16.2)
+      fiber-local
     crass (1.0.6)
     cssbundling-rails (1.1.2)
       railties (>= 6.0.0)
@@ -128,11 +170,13 @@ GEM
       reline (>= 0.3.1)
     error_highlight (0.5.1)
     erubi (1.12.0)
+    fiber-local (1.0.0)
     globalid (1.1.0)
       activesupport (>= 5.0)
     i18n (1.13.0)
       concurrent-ruby (~> 1.0)
     io-console (0.6.0)
+    io-event (1.2.2)
     irb (1.6.4)
       reline (>= 0.3.0)
     jbuilder (2.11.5)
@@ -140,6 +184,7 @@ GEM
       activesupport (>= 5.0.0)
     jsbundling-rails (1.1.1)
       railties (>= 6.0.0)
+    localhost (1.1.10)
     loofah (2.21.3)
       crass (~> 1.0.2)
       nokogiri (>= 1.12.0)
@@ -148,6 +193,7 @@ GEM
       net-imap
       net-pop
       net-smtp
+    mapping (1.1.1)
     marcel (1.0.2)
     matrix (0.4.2)
     mini_mime (1.1.2)
@@ -169,12 +215,26 @@ GEM
       racc (~> 1.4)
     nokogiri (1.15.1-x86_64-linux)
       racc (~> 1.4)
+    openssl (3.1.0)
     pg (1.5.3)
+    process-metrics (0.2.1)
+      console (~> 1.8)
+      samovar (~> 2.1)
     propshaft (0.7.0)
       actionpack (>= 7.0.0)
       activesupport (>= 7.0.0)
       rack
       railties (>= 7.0.0)
+    protocol-hpack (1.4.2)
+    protocol-http (0.24.1)
+    protocol-http1 (0.15.0)
+      protocol-http (~> 0.22)
+    protocol-http2 (0.15.1)
+      protocol-hpack (~> 1.4)
+      protocol-http (~> 0.18)
+    protocol-rack (0.2.4)
+      protocol-http (~> 0.23)
+      rack (>= 1.0)
     public_suffix (5.0.1)
     racc (1.6.2)
     rack (3.0.7)
@@ -203,6 +263,9 @@ GEM
       io-console (~> 0.5)
     rexml (3.2.5)
     rubyzip (2.3.2)
+    samovar (2.1.4)
+      console (~> 1.0)
+      mapping (~> 1.0)
     selenium-webdriver (4.9.1)
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
@@ -222,6 +285,8 @@ GEM
     thor (1.2.2)
     thread-local (1.1.0)
     timeout (0.3.2)
+    timers (4.3.5)
+    traces (0.9.1)
     turbo-rails (1.4.0)
       actionpack (>= 6.0.0)
       activejob (>= 6.0.0)
@@ -252,6 +317,7 @@ DEPENDENCIES
   cssbundling-rails
   debug
   error_highlight (>= 0.4.0)
+  falcon!
   jbuilder
   jsbundling-rails
   pg (~> 1.1)

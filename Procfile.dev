@@ -1,3 +1,4 @@
-web: unset PORT && bin/rails server
+web: bundle exec falcon32 serve --threaded --bind http://0.0.0.0:6969
 js: yarn build --watch
 css: yarn build:css --watch
+
